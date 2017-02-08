@@ -1,0 +1,194 @@
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+
+//Thomas Varano
+//Small, changeable blocks.
+//Dec 26, 2016
+
+public class TetrisBlock
+{
+   
+   private int blockSize, rFromCenter, cFromCenter, resetTime, r, c;
+   private long pacer;
+   private boolean left, right, down, speedUp,clear, rotatable;
+   private Color color;
+   private Location[][] grid;
+   private Location location;
+   
+   public TetrisBlock(int r, int c, int width){
+      rFromCenter = 0;
+      cFromCenter = 0;
+      this.c = c;
+      this.r = r;
+      left = right = down = speedUp = false;
+      this.setColor(Color.WHITE);
+      pacer = 0;
+      setGrid(Tetris.getGrid());
+      location = grid[r][c];
+   }
+   
+   public void update(){
+      setLocation(grid[r][c]);
+   }
+   
+   public boolean canMoveDown(){
+      return(!grid[r+1][c].isFull());
+   }
+   
+   public boolean canMoveLeft(){
+      return(!grid[r][c-1].isFull());
+
+   }
+   
+   public boolean canMoveRight(){
+      return (!grid[r][c+1].isFull());
+   }
+   
+   public Rectangle getBounds(){
+      return new Rectangle(location.getX(),location.getY(),blockSize,blockSize);
+   }
+   
+   public boolean equals(TetrisBlock b){
+      return (b.getR() == r && b.getC() == c && b.getBlockSize() == blockSize);
+   }
+   
+   public boolean checkFull(int r, int c){
+      return grid[r][c].isFull();
+   }
+   
+   public void draw(Graphics2D g2){
+      g2.setColor(getColor());
+      g2.fill(getBounds());
+      g2.setColor(Color.BLACK);
+      g2.draw(getBounds());
+   }
+   
+   public String toString(){
+      return this.getClass().getName()+"[("+r+","+c+")("+rFromCenter+","+cFromCenter+")]";
+   }
+   
+   public boolean isLeft() {
+      return left;
+   }
+   public void setLeft(boolean left) {
+      this.left = left;
+   }
+   public boolean isRight() {
+      return right;
+   }
+   public void setRight(boolean right) {
+      this.right = right;
+   }
+   public boolean isDown() {
+      return down;
+   }
+   public void setDown(boolean down) {
+      this.down = down;
+   }
+   public boolean isSpeedUp() {
+      return speedUp;
+   }
+   public void setSpeedUp(boolean speedUp) {
+      this.speedUp = speedUp;
+   }
+   public Color getColor() {
+      return color;
+   }
+
+   public void setColor(Color color) {
+      this.color = color;
+   }
+
+   public int getBlockSize() {
+      return blockSize;
+   }
+
+   public void setBlockSize(int blockSize) {
+      this.blockSize = blockSize;
+   }
+
+   public int getRFromCenter() {
+      return rFromCenter;
+   }
+
+   public void setRFromCenter(int rFromCenter) {
+      this.rFromCenter = rFromCenter;
+   }
+
+   public int getCFromCenter() {
+      return cFromCenter;
+   }
+
+   public void setCFromCenter(int cFromCenter) {
+      this.cFromCenter = cFromCenter;
+   }
+
+   public boolean isClear() {
+      return clear;
+   }
+
+   public void setClear(boolean clear) {
+      this.clear = clear;
+   }
+
+   public long getPacer() {
+      return pacer;
+   }
+
+   public void setPacer(long pacer) {
+      this.pacer = pacer;
+   }
+
+   public int getResetTime() {
+      return resetTime;
+   }
+
+   public void setResetTime(int resetTime) {
+      this.resetTime = resetTime;
+   }
+
+   public Location[][] getGrid() {
+      return grid;
+   }
+
+   public void setGrid(Location[][] grid) {
+      this.grid = grid;
+   }
+
+   public Location getLocation() {
+      return location;
+   }
+
+   public void setLocation(Location location) {
+      this.location = location;
+   }
+   
+   public void setLocation(int r, int c) {
+      this.location = grid[r][c];
+   }
+
+   public int getR() {
+      return r;
+   }
+
+   public void setR(int r) {
+      this.r = r;
+   }
+
+   public int getC(){
+      return c;
+   }
+
+   public void setC(int c) {
+      this.c = c;
+   }
+
+   public boolean isRotatable() {
+      return rotatable;
+   }
+
+   public void setRotatable(boolean rotatable) {
+      this.rotatable = rotatable;
+   }
+}
